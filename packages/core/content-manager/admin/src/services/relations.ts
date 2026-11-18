@@ -126,6 +126,11 @@ const relationsApi = contentManagerApi.injectEndpoints({
           endpointName,
           model: queryArgs.model,
           targetField: queryArgs.targetField,
+          // The source `id` (document or component) and locale scope the results, so they must be
+          // part of the cache key. Otherwise e.g. two dynamic-zone components with the same (empty)
+          // idsToOmit share one cached list and show each other's exclusions.
+          id: queryArgs.params?.id,
+          locale: queryArgs.params?.locale,
           _q: queryArgs.params?._q,
           idsToOmit: queryArgs.params?.idsToOmit,
           idsToInclude: queryArgs.params?.idsToInclude,
